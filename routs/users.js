@@ -1,12 +1,7 @@
 import express, { json } from 'express'
 import { v4 as uuidv4 } from 'uuid';
-import cors from 'cors'
-
 
 const routers = express.Router()
-
-
-
 
 const users = [
     {
@@ -45,6 +40,13 @@ routers.get('/:id',(req,res)=>{
     console.log(userData)
 
     res.send(userData)
+})
+
+routers.delete('/:id',(req,res)=>{
+    const {id} = req.params
+
+    const deletedId = users.filter((user)=> user.id != id)
+    console.log(`Sooli mudenjathu`)
 })
 
 export default routers
