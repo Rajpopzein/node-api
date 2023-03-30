@@ -1,11 +1,11 @@
 import express, { json, response } from 'express'
 import {createUser,getUserById,deleteUserById,updateUser} from '../controller/users.js'
-import myJson from '../users.json' assert {type: 'json'};
+
  
 const routers = express.Router()
 
 const users = [
-  myJson
+  
 ]
 
 //All users in this module starting here with /users
