@@ -10,7 +10,7 @@ let userss =[
 
 
 export const getAllUser = (req,res) => {
-    res.status(200).json({status:'Sucess', data:{userss}})
+    res.status(200).json({status:'Sucess', data:userss})
 }
 
 
