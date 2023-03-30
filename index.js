@@ -17,9 +17,6 @@ app.use('/users', usersRouts)
 
 
 
-
-
-
 app.get('/',(req,res) => {
     
     console.log(res,"------------");
