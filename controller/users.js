@@ -4,22 +4,29 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 
-let users =[]
+let userss =[
+    {'name':'raj'}
+]
 
+
+export const getAllUser = (req,res) => {
+    res.send(userss)
+}
 
 
 export const createUser = (req,res)=>{
     const user = req.body
     // const userId = uuidv4();
     const userWithId = {...user, Id:uuidv4()}
-    users.push(userWithId)
+    userss.push(userWithId)
+    console.log(userss)
     res.send(req.body)
 }
 
 export const getUserById = (req,res)=>{
     const {id} = req.params
 
-    const userData = users.find((user) => user.id == id)
+    const userData = userss.find((user) => user.id == id)
 
     console.log(userData)
 
@@ -29,7 +36,7 @@ export const getUserById = (req,res)=>{
 export const deleteUserById = (req,res)=>{
     const {id} = req.params
 
-    const deletedId = users.filter((user)=> user.id != id)
+    const deletedId = userss.filter((user)=> user.id != id)
     // console.log(`Sooli mudenjathu`)
     res.send(`Sooli mudenjathu`)
 }
@@ -37,7 +44,7 @@ export const deleteUserById = (req,res)=>{
 export const updateUser = (req,res)=>{
     const {id} = req.params
 
-    const user = users.filter((user)=>user.id == id)
+    const user = userss.filter((user)=>user.id == id)
 
     const {name,age} = req.body;
 
