@@ -18,8 +18,6 @@ app.use('/users', usersRouts)
 
 
 app.get('/',(req,res) => {
-    
-    console.log(res,"------------");
     res.send("Let me Send A kutty Story");
 })
 
