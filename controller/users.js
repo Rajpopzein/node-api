@@ -1,29 +1,58 @@
 import { v4 as uuidv4 } from 'uuid';
+import {MongoClient} from 'mongodb';
+import {ServerApiVersion} from 'mongodb'
+
+
+
+
+const uri = "mongodb+srv://rajkumarr:popzein_helen_123@cluster0.lrnwsdq.mongodb.net/?retryWrites=true&w=majority"
+const client = new MongoClient(uri)
+const database = client.db("testing");
+const test = database.collection("test");
+
+const createuser = async(data) =>{
+    try{
+      
+      const doc = data
+  
+    //   const result = test.insertOne(doc)
+  
+    //   console.log(`document was inserted ${result._id}`)
+  
+    }finally{
+      await client.close();
+    }
+  }
 
 
 
 
 
-let userss =[
-    
-]
+let userss =[]
 
 
-export const getAllUser = (req,res) => {
-    res.status(200).json({status:'Sucess', data:userss})
+export const getAllUser = async(req,res) => {
+    const alldata = await test.find({}).toArray()
+    console.log(alldata)
+    res.status(200).json({status:'ok', data:alldata})
+    client.close();
 }
 
 
-export const createUser = (req,res)=>{
+export const createUser = async(req,res)=>{
     const user = req.body
     // const userId = uuidv4();
     const name= req.body.name
     const id = uuidv4()
-    const existingDataCheck = userss.find((user)=>user.name == req.body.name)
+    const userss =(await test.find({}).toArray())
+    const existingDataCheck = userss.find((users)=> users.name == user.name)
+    console.log(existingDataCheck)
     if(existingDataCheck == undefined)
     {
         const userWithId = {...user, id}
-        userss.push(userWithId)
+// ////////////////////////////////////////////////////////////////////////////////
+        createuser(userWithId)
+// ////////////////////////////////////////////////////////////////////////////////////
         res.status(201).json({status:'ok'})
     }
     else{
