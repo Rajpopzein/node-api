@@ -14,10 +14,9 @@ const createuser = async(data) =>{
     try{
       
       const doc = data
+      const result = test.insertOne(doc)
   
-    //   const result = test.insertOne(doc)
-  
-    //   console.log(`document was inserted ${result._id}`)
+      console.log(`document was inserted ${result._id}`)
   
     }finally{
       await client.close();
@@ -32,10 +31,15 @@ let userss =[]
 
 
 export const getAllUser = async(req,res) => {
-    const alldata = await test.find({}).toArray()
+    try{
+        const alldata = await test.find({}).toArray()
     console.log(alldata)
     res.status(200).json({status:'ok', data:alldata})
     client.close();
+    }
+    catch(e){
+        console.log("error fetching data",e)
+    }
 }
 
 
