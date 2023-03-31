@@ -6,8 +6,6 @@ const routers = express.Router()
 
 
 
-
-
 //All users in this module starting here with /users
 routers.get('/',(req,res)=>{
     res.send(req.body)

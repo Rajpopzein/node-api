@@ -32,13 +32,22 @@ export const createUser = (req,res)=>{
    
 }
 
-export const getUserById = (req,res)=>{
+export const getUserById = async (req,res)=>{
     const {id} = req.params
 
-    const userData = userss.find((user) => user.id == id)
+   
+    const userData = await userss.find((user) => user.id == id)
 
-    res.status(200).json({status:'Success', data:userData})
+    // res.status(200).json({status:'Success', data:userData})
+
+    if(userData == undefined){
+        res.status(404).json({status:"User not found"})
+    }
+    else{
+        res.status(200).json({status:'success', data:userData})
+    }
 }
+
 
 export const deleteUserById = (req,res)=>{
     const {id} = req.params
