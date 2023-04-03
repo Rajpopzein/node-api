@@ -14,8 +14,7 @@ const createuser = async(data) =>{
     try{
       
       const doc = data
-      const result = test.insertOne(doc)
-  
+      const result =await test.insertOne(doc)  
       console.log(`document was inserted ${result._id}`)
   
     }finally{
@@ -43,55 +42,60 @@ export const getAllUser = async(req,res) => {
 }
 
 
+
 export const createUser = async(req,res)=>{
-    const user = req.body
+    const user = req.body;
     // const userId = uuidv4();
-    const name= req.body.name
-    const id = uuidv4()
-    const userss =(await test.find({}).toArray())
-    const existingDataCheck = userss.find((users)=> users.name == user.name)
-    console.log(existingDataCheck)
+    const name= req.body.name;
+    const id = uuidv4();
+    const userss =(await test.find({}).toArray());
+    const existingDataCheck = userss.find((users)=> users.name == user.name);
+    console.log(existingDataCheck);
     if(existingDataCheck == undefined)
     {
-        const userWithId = {...user, id}
+        const userWithId = {...user, id};
+
 // ////////////////////////////////////////////////////////////////////////////////
-        createuser(userWithId)
+        createuser(userWithId);
 // ////////////////////////////////////////////////////////////////////////////////////
-        res.status(201).json({status:'ok'})
+        res.status(201).json({status:'ok'});
     }
     else{
-        res.status(403).json({status:'user already exist'})
+        res.status(403).json({status:'user already exist'});
     }
    
 }
 
 export const getUserById = async (req,res)=>{
-    const {id} = req.params
+    const {id} = req.params;
 
    
-    const userData = await userss.find((user) => user.id == id)
+    const userData = await userss.find((user) => user.id == id);
 
     // res.status(200).json({status:'Success', data:userData})
 
     if(userData == undefined){
-        res.status(404).json({status:"User not found"})
+        res.status(404).json({status:"User not found"});
     }
     else{
-        res.status(200).json({status:'success', data:userData})
+        res.status(200).json({status:'success', data:userData});
     }
 }
 
 
-export const deleteUserById = (req,res)=>{
-    const {id} = req.params
+export const deleteUserById = async(req,res)=>{
+    const {id} = req.params;
+    const alldata = await test.find({}).toArray();
+    const deletedId = userss.filter((user)=> user.id != id);
 
-    const deletedId = userss.filter((user)=> user.id != id)
-    // console.log(`Sooli mudenjathu`)
-    res.status(200).json({status:'Success'})
+    for (let data in alldata){
+        console.log('>>>>>>>',data)
+    }
+    res.status(200).json({status:'Success'});
 }
 
 export const updateUser = (req,res)=>{
-    const {id} = req.params
+    const {id} = req.params;
 
     const user = userss.filter((user)=>user.id == id)
 
@@ -108,4 +112,3 @@ export const updateUser = (req,res)=>{
     }
     res.status(200).json({status:'Updated sucessfully'})
 }
-
