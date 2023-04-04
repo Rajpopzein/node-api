@@ -14,7 +14,6 @@ const test = database.collection("test");
 
 const createuser = async(data) =>{
     try{
-      
       const doc = data
       const result =await test.insertOne(doc)  
       console.log(`document was inserted ${result}`)
@@ -32,6 +31,7 @@ let userss =[]
 
 
 export const getAllUser = async(req,res) => {
+    const client = new MongoClient(uri)
     try{
     const alldata = await test.find({}).toArray()
     // console.log(alldata)
@@ -74,7 +74,7 @@ export const createUser = async(req,res)=>{
 
 export const getUserById = async (req,res)=>{
     const {id} = req.params;
-
+    const client = new MongoClient(uri)
    
     const userData = await userss.find((user) => user.id == id);
 
@@ -91,6 +91,7 @@ export const getUserById = async (req,res)=>{
 
 export const deleteUserById = async(req,res)=>{
     const {id} = req.params;
+    const client = new MongoClient(uri)
     const alldata = await test.find({}).toArray();
     const deletedId = userss.filter((user)=> user.id != id);
 
@@ -102,6 +103,7 @@ export const deleteUserById = async(req,res)=>{
 
 export const updateUser = (req,res)=>{
     const {id} = req.params;
+    const client = new MongoClient(uri)
 
     const user = userss.filter((user)=>user.id == id)
 
