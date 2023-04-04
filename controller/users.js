@@ -76,7 +76,7 @@ export const deleteUserById = async(req,res) => {
     const {id} = req.params;
     const client = new MongoClient(uri)
     const alldata = await test.find({}).toArray();
-    const deletedId = alldata.filter((user)=> user.id == id);
+    const deletedId = alldata.filter((user)=> user._id == id);
    
     if(deletedId.length > 0)
     { 
@@ -94,7 +94,7 @@ export const deleteUserById = async(req,res) => {
 export const updateUser = (req,res) => {
     const {id} = req.params;
     const client = new MongoClient(uri)
-    const user = userss.filter((user)=>user.id == id)
+    const user = userss.filter((user)=>user._id == id)
     const {name,age,address} = req.body;
     if(name){
         user.name = name
