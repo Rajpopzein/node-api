@@ -7,6 +7,8 @@ import {ServerApiVersion} from 'mongodb'
 
 const uri = "mongodb+srv://rajkumarr:popzein_helen_123@cluster0.lrnwsdq.mongodb.net/?retryWrites=true&w=majority"
 const client = new MongoClient(uri)
+
+
 const database = client.db("testing");
 const test = database.collection("test");
 
@@ -15,7 +17,7 @@ const createuser = async(data) =>{
       
       const doc = data
       const result =await test.insertOne(doc)  
-      console.log(`document was inserted ${result._id}`)
+      console.log(`document was inserted ${result}`)
   
     }finally{
       await client.close();
@@ -31,19 +33,23 @@ let userss =[]
 
 export const getAllUser = async(req,res) => {
     try{
-        const alldata = await test.find({}).toArray()
-    console.log(alldata)
+    const alldata = await test.find({}).toArray()
+    // console.log(alldata)
     res.status(200).json({status:'ok', data:alldata})
-    client.close();
+    
     }
     catch(e){
         console.log("error fetching data",e)
+    }
+    finally{
+        await client.close();
     }
 }
 
 
 
 export const createUser = async(req,res)=>{
+    const client = new MongoClient(uri)
     const user = req.body;
     // const userId = uuidv4();
     const name= req.body.name;
